@@ -1,6 +1,7 @@
 package ru.kscsq.dao;
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -60,7 +61,19 @@ public class BookDaoImpl implements BookDao {
     @SuppressWarnings("unchecked")
     public List<Book> listBooks() {
         Session session = sessionFactory.getCurrentSession();
-        List<Book> bookList = session.createQuery("from Book").list();
+        Query query = session.createQuery("from Book");
+        List<Book> bookList = query.list();
+        for (Book book : bookList)
+            logger.info("Book list: " + book);
+        return bookList;
+    }
+
+    @Override
+    public List<Book> listSearchedBooks(String searchText) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Book where printyear = :code");
+        query.setParameter("code", Integer.parseInt(searchText));
+        List<Book> bookList = query.list();
         for (Book book : bookList)
             logger.info("Book list: " + book);
         return bookList;

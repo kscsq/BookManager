@@ -15,4 +15,6 @@ public interface BookService {
     Book getBookById(int id);
 
     List<Book> listBooks();
+
+    List<Book> listSearchedBooks(String searchText);
 }

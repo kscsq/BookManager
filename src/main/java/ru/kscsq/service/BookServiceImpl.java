@@ -46,4 +46,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> listBooks() {
         return bookDao.listBooks();
     }
+
+    @Transactional
+    public List<Book> listSearchedBooks(String searchText) {
+        return bookDao.listSearchedBooks(searchText);
+    }
 }

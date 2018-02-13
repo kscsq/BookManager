@@ -1,16 +1,15 @@
 package ru.kscsq.controller;
 
 
+import org.springframework.web.bind.annotation.*;
 import ru.kscsq.model.Book;
 import ru.kscsq.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Optional;
 
 @Controller
 public class BookController {
@@ -24,11 +23,23 @@ public class BookController {
     }
 
     @RequestMapping(value = "books", method = RequestMethod.GET)
-    public String listBooks(Model model) {
+    public String listBooks(@RequestParam(value = "printyear", required = false) String printyear, Model model) {
         model.addAttribute("book", new Book());
-        model.addAttribute("listBooks", bookService.listBooks());
+        if (printyear == null) {
+            model.addAttribute("listBooks", bookService.listBooks());
+        } else {
+            model.addAttribute("listBooks", bookService.listSearchedBooks(printyear));
+        }
         return "books";
     }
+
+/*    @RequestMapping(value = "/books/search", method = RequestMethod.POST)
+    public String searchBooks(@RequestParam String printyear) {
+
+        this.bookService.listSearchedBooks(printyear);
+
+        return "redirect:/books";
+    }*/
 
     @RequestMapping(value = "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book) {

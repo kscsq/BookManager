@@ -16,4 +16,6 @@ public interface BookDao {
     Book getBookById(int id);
 
     List<Book> listBooks();
+
+    List<Book> listSearchedBooks(String searchText);
 }

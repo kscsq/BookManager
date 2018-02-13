@@ -103,7 +103,7 @@
 
 </c:if>
 
-
+<div align="left">
 <h2>Add/Update a Book</h2>
 
 <c:url var="addAction" value="/books/add"/>
@@ -183,11 +183,6 @@
             </td>
         </tr>
         <tr>
-<%--            <td>
-                        <form:label path="readAlready">
-                            <spring:message text="Is read?"/>
-                        </form:label>
-            </td>--%>
             <td>
                 <form:hidden path="readAlready" value="false" onfocus="true"/>
             </td>
@@ -206,5 +201,27 @@
         </tr>
     </table>
 </form:form>
+</div>
+<div>
+    <h2>Search</h2>
+
+    <c:url var="searchAction" value="books"/>
+
+    <form:form method="get" action="${searchAction}" commandName="book">
+        <table>
+            <tr>
+                <td>
+                    <input name="printyear" placeholder="printyear">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit"
+                           value="<spring:message text="Search"/>"/>
+                </td>
+            </tr>
+        </table>
+    </form:form>
+</div>
 </body>
 </html>
