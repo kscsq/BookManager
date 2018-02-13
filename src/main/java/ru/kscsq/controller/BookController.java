@@ -25,21 +25,13 @@ public class BookController {
     @RequestMapping(value = "books", method = RequestMethod.GET)
     public String listBooks(@RequestParam(value = "printyear", required = false) String printyear, Model model) {
         model.addAttribute("book", new Book());
-        if (printyear == null) {
+        if (printyear == null || printyear.equals("")) {
             model.addAttribute("listBooks", bookService.listBooks());
         } else {
             model.addAttribute("listBooks", bookService.listSearchedBooks(printyear));
         }
         return "books";
     }
-
-/*    @RequestMapping(value = "/books/search", method = RequestMethod.POST)
-    public String searchBooks(@RequestParam String printyear) {
-
-        this.bookService.listSearchedBooks(printyear);
-
-        return "redirect:/books";
-    }*/
 
     @RequestMapping(value = "/books/add", method = RequestMethod.POST)
     public String addBook(@ModelAttribute("book") Book book) {
@@ -80,8 +72,6 @@ public class BookController {
         if (!book.isReadAlready()) {
             book.setReadAlready(true);
         }
-
-
         return "redirect:/books";
     }
 

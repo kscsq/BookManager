@@ -68,9 +68,9 @@
             <th width="60">Delete</th>
         </tr>
         <%-- Paginating --%>
-        <c:set var="books" scope="page" value="${listBooks}"/>
-        <c:set var="totalCount" scope="page" value="${books.size()}"/>
-        <c:set var="perPage" scope="page"  value="${5}"/>
+        <c:set var="books" scope="request" value="${listBooks}"/>
+        <c:set var="totalCount" scope="request" value="${listBooks.size()}"/>
+        <c:set var="perPage" scope="request"  value="${5}"/>
         <c:set var="pageStart" value="${param.start}"/>
         <c:set var="pageEnd" value="${pageStart + 5}"/>
         <c:if test="${empty pageStart or pageStart < 0}">
